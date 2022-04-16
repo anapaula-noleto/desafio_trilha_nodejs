@@ -57,7 +57,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
     created_at: new Date(),
   }
   user.todos.push(todo)
-  return response.json(todo)
+  return response.status(201).json(todo)
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
@@ -69,8 +69,8 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
     return response.status(404).json({error: 'Todo not found'})
   }
   todo.title = title
-  todo.deadline = new Date(deadline)
-  return response.status(201).send()
+  todo.deadline = deadline
+  return response.json(todo)
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
@@ -81,7 +81,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
     return response.status(404).json({error: 'Todo not found'})
   }
   todo.done = true
-  return response.status(201).send()
+  return response.status(201).json(todo)
 
 });
 
